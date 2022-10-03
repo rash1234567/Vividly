@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MOVIES</title>
+</head>
+<body style="padding: 0 5%;">
+    <div class="navbar" style="width: 100%;display: flex;align-items: center;justify-content: center;background-color: black ;margin: 0 auto;">
+        <ul style="width: 90%;display: flex;align-items: center;justify-content: space-around; list-style: none;font-size: 20px; font-weight: 700;color: white;">
+           <li><a href="/" style="text-decoration: none;color: white;"> Movies</a></li>
+           <li><a href="/About" style="text-decoration: none;color: white;"> About</a></li>
+           <li><a href="/create" style="text-decoration: none;color: white;"> Add New</a></li>
+       </ul>
+   </div>
+    <div class="movies" >
+        <h3 style="text-align: center; text-decoration: underline;color:black;">Trending Movies</h3>
+        <% if (movies.length < 1) { %>
+            <p style="align-self:center ; "> No movies yet, check back later</p>
+        <% } 
+        else {
+            %> <% movies.forEach(movies => { %>
+                <div style=" background-color: black; padding: 5%;">
+                    <a class="single" href="/movies/<%= movies.id %>" style="text-decoration: none;color: white;
+                        display: flex; width: 100%; justify-content: space-around;">
+                        <div class="pic" style="width: 25%;">
+                            <img src="<%= movies.poster_path %>" alt="movie" style="width: 100%;">
+                        </div>
+                        <div class="text" style="width: 40%;">
+                            <h2 class="title" style="text-decoration: underline; font-size: 30px;"> Title: <%= movies.title %></h2>
+                            <p style="font-size: 20px;">Release Date: <%= movies.release%></p>
+                            <p style="font-size: 20px;">Original language: <%= movies.original_language%></p>
+                            <p  style="font-size: 20px;">Popularity: <%= movies.popularity%></p>
+                            <h3 style="font-size: 25px;">overview:</h3>
+                            <article style="width: 100%; font-size: 16px;">
+                            <%= movies.overview %>
+                            </article>
+                        </div>
+                    </a>    
+                </div>
+        <% }) %> <%
+        } %>     
+    </div>
+</body>
+</html>

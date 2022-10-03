@@ -1,61 +1,20 @@
 const express = require('express');
+const movieRoute = require('./Router/movieRouter');
+
+
+
 const app = express();
 
-app.use(express.json());
-
-const movies = [
-    {
-        id : 1,
-        genre : 'comedy'
-    },
-    {
-        id : 2,
-        genre : 'action'
-    },
-    {
-        id : 3,
-        genre : 'romance'
-    }
-]
+//middlewares
+app.set('view engine','ejs');
+app.use(express.static('public'));
+app.use(express.urlencoded({ extended: true }));
 
 
-app.get('/movies', (req, res) => {
-    res.send(movies)
-});
-
-app.get('/movies/:id', (req, res) => {
-    const movie = movies.find(movie => movie.id === parseInt(req.params.id));
-    if(!movie) return res.status(404).send('specify a genre atleast three characters long'); 
-    res.send(movie);
-});
-
-app.post('/movies', (req, res) => {
-    const movie = {
-        id : movies.length + 1,
-        genre : req.body.genre
-    }
-    movies.push(movie);
-    if(!req.body.genre || req.body.genre < 3) {
-        res.send('specify a genre atleast three characters long')
-    }
-    res.send(movie)
+//routes
+app.use
+app.use(movieRoute)
+app.use((req,res)=>{
+    res.status(302).render('404',{ title: 404 })
 })
-
-app.put('/movies/:id', (req, res) => {
-    const movie = movies.find(movie => movie.id === parseInt(req.params.id));
-    if(!movie) return res.status(404).send('The movie with this id does not exist');
-    movies.genre = req.body.genre;
-    res.send(movie)
-});
-
-app.delete('/movies/:id', (req, res) => {
-    const movie = movies.find(movie => movie.id === parseInt(req.params.id));
-    const index = movies.findIndexOf(movie);
-    movies.splice(index, 1);
-    if(!req.body.genre || req.body.genre < 3) {
-        res.send('specify a genre atleast three characters long')
-    }
-    res.send(movie)
-})
-    
-app.listen(5000)
+app.listen(8080);
