@@ -3,7 +3,7 @@ const moviesDatabase = require('../database');
 const movie_index = (req,res)=>{
     const movies = moviesDatabase.sort();
     try {
-      res.render('index',{title: 'All Movies', movies })
+      res.render('index', {title: 'All Movies', movies })
     } catch (error) {
       console.log(error);
 }};
@@ -13,7 +13,7 @@ const movie_about = (req,res)=>{
       res.render('about',{title: 'About us' })
     } catch (error) {
       console.log(error);
-}};
+}};                                                                                      
 
 const movie_create = (req,res)=>{
     try {
@@ -34,7 +34,9 @@ const movie_post = (req,res)=>{
     let movies = {
         id : moviesDatabase.length + 1,
         title : req.body.title,
-        genre : req.body.genre,
+        release_date: req.body.release_date,
+        original_language: req.body.original_language,
+        popularity: req.body.popularity,
         overview: req.body.overview
     }
     moviesDatabase.push(movies);
